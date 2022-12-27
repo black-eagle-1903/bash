@@ -85,16 +85,16 @@ write_log "Invoked command line as follows:"
 echo -e "$0" "$@" >> ${LOG_FILE_PATH}
 
 write_log "Starting 1st pass of video encoding..." 1
-ffmpeg_command_line="${ffmpeg_BIN_PATH} -i ${INPUT_VIDEO_FILE} -an -vf "crop=${CROP_RECTANGLE}" -b:v ${AVERAGE_VIDEO_BITRATE} -maxrate:v ${MAXIMUM_VIDEO_BITRATE} -bufsize ${MAXIMUM_VIDEO_BITRATE} -pass 1 -fastfirstpass 0 -passlogfile ${PASS_LOG_FILE_PREFIX} -f mp4 -y /dev/null"
+ffmpeg_command_line="${ffmpeg_BIN_PATH} -i \"${INPUT_VIDEO_FILE}\" -an -vf crop=\"${CROP_RECTANGLE}\" -b:v \"${AVERAGE_VIDEO_BITRATE}\" -maxrate:v \"${MAXIMUM_VIDEO_BITRATE}\" -bufsize \"${MAXIMUM_VIDEO_BITRATE}\" -pass 1 -fastfirstpass 0 -passlogfile \"${PASS_LOG_FILE_PREFIX}\" -f mp4 -y /dev/null"
 perform_encoding_pass
 write_log "Finished 1st pass of video encoding."
 
 write_log "Starting 2nd pass of video encoding..." 1 
-ffmpeg_command_line="${ffmpeg_BIN_PATH} -i ${INPUT_VIDEO_FILE} -an -vf "crop=${CROP_RECTANGLE}" -b:v ${AVERAGE_VIDEO_BITRATE} -maxrate:v ${MAXIMUM_VIDEO_BITRATE} -bufsize ${MAXIMUM_VIDEO_BITRATE} -pass 2 -passlogfile ${PASS_LOG_FILE_PREFIX} -f mp4 -y /dev/null"
+ffmpeg_command_line="${ffmpeg_BIN_PATH} -i \"${INPUT_VIDEO_FILE}\" -an -vf crop=\"${CROP_RECTANGLE}\" -b:v \"${AVERAGE_VIDEO_BITRATE}\" -maxrate:v \"${MAXIMUM_VIDEO_BITRATE}\" -bufsize \"${MAXIMUM_VIDEO_BITRATE}\" -pass 2 -passlogfile \"${PASS_LOG_FILE_PREFIX}\" -f mp4 -y /dev/null"
 perform_encoding_pass
 write_log "Finished 2nd pass of video encoding."
 
 write_log "Starting 3rd pass of video encoding..." 1
-ffmpeg_command_line="${ffmpeg_BIN_PATH} -i ${INPUT_VIDEO_FILE} -vf "crop=${CROP_RECTANGLE}" -b:v ${AVERAGE_VIDEO_BITRATE} -maxrate:v ${MAXIMUM_VIDEO_BITRATE} -bufsize ${MAXIMUM_VIDEO_BITRATE} -c:a copy -pass 3 -passlogfile ${PASS_LOG_FILE_PREFIX} ${OUTPUT_MP4_FILE}"
+ffmpeg_command_line="${ffmpeg_BIN_PATH} -i \"${INPUT_VIDEO_FILE}\" -vf crop=\"${CROP_RECTANGLE}\" -b:v \"${AVERAGE_VIDEO_BITRATE}\" -maxrate:v \"${MAXIMUM_VIDEO_BITRATE}\" -bufsize \"${MAXIMUM_VIDEO_BITRATE}\" -c:a copy -pass 3 -passlogfile \"${PASS_LOG_FILE_PREFIX}\" \"${OUTPUT_MP4_FILE}\""
 perform_encoding_pass
 write_log "Finished 3rd pass of video encoding."
