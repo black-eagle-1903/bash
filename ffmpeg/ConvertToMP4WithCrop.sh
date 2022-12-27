@@ -4,7 +4,7 @@
 #	1st argument	: Input video file path
 #	2nd argument	: Average video rate
 #	3rd argument	: Maximum video rate
-#	4th argument	: Audio bit rate
+#	4th argument	: Crop rectangle
 #	5th argument	: Output MP4 video path
 # v1.0
 
@@ -12,12 +12,11 @@ ffmpeg_BIN_PATH=/usr/bin/ffmpeg
 INPUT_VIDEO_FILE=$1
 AVERAGE_VIDEO_BITRATE=$2
 MAXIMUM_VIDEO_BITRATE=$3
-AUDIO_BITRATE=$4
 # Crop rectangle has 4 numbers separated by colon as output width, output height, x and y
 # x is the horizontal y is the vertical start position of the rectangle
 # e.g. 720:432:0:72
-CROP_RECTANGLE=$5
-OUTPUT_MP4_FILE=$6
+CROP_RECTANGLE=$4
+OUTPUT_MP4_FILE=$5
 PASS_LOG_FILE_PREFIX=${OUTPUT_MP4_FILE%.*}.pass
 # Obtain the filename part of the current script file
 CURRENT_SCRIPT_FILE=${0##*/}
@@ -57,9 +56,8 @@ fi
 check_input_argument "${INPUT_VIDEO_FILE}" "Input video file path" 1
 check_input_argument "${AVERAGE_VIDEO_BITRATE}" "Average video bit rate" 2
 check_input_argument "${MAXIMUM_VIDEO_BITRATE}" "Maximum video bit rate" 3
-check_input_argument "${AUDIO_BITRATE}" "Audio bit rate" 4
-check_input_argument "${CROP_RECTANGLE}" "Video crop rectangle" 5
-check_input_argument "${OUTPUT_MP4_FILE}" "Output MP4 file path" 6
+check_input_argument "${CROP_RECTANGLE}" "Video crop rectangle" 4
+check_input_argument "${OUTPUT_MP4_FILE}" "Output MP4 file path" 5
 
 # Explanations related to used command line options for ffmpeg executable
 # -an				: Disable audio
