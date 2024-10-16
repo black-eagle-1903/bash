@@ -57,7 +57,7 @@ check_input_argument "${OUTPUT_MP4_FILE}" "Output MP4 file path" 4
 # -an				: Disable audio
 # -b:v				: Video bitrate
 # -maxrate			: Set maximum bitrate tolerance
-# -bufsize     		: set ratecontrol buffer size (in bits)
+# -bufsize     			: set ratecontrol buffer size (in bits)
 # yadif				: specify the interlacing mode
 # -bf				: B-Frames valid values from -1 to 16
 # -mbd				: macroblock decision algorithm
@@ -65,13 +65,13 @@ check_input_argument "${OUTPUT_MP4_FILE}" "Output MP4 file path" 4
 # mv4				: use four motion vectors per macroblock
 # aic				: H.263 advanced intra coding / MPEG-4 AC
 # mv0				: always try a mb with mv=<0,0>
-# -trellis  		: rate-distortion optimal quantization
+# -trellis  			: rate-distortion optimal quantization
 # -cmp				: full-pel ME compare function
 # -subcmp			: sub-pel ME compare function
 # -g				: set the group of picture (GOP) size
 # -pass				: select the pass number (1 to 3)
-# -fastfirstpass	: Use fast settings when encoding first
-# -passlogfile		: select two pass log file name prefix
+# -fastfirstpass		: Use fast settings when encoding first
+# -passlogfile			: select two pass log file name prefix
 # strict			: how strictly to follow the standards (experimental: allow non-standardized experimental things)
 # -y				: overwrite output files
 
@@ -79,16 +79,16 @@ write_log "Invoked command line as follows:"
 echo -e "$0" "$@" >> ${LOG_FILE_PATH}
 
 write_log "Starting 1st pass of video encoding..." 1
-ffmpeg_command_line="${ffmpeg_BIN_PATH} -i \"${INPUT_VIDEO_FILE}\" -an -b:v \"${AVERAGE_VIDEO_BITRATE}\" -maxrate:v \"${MAXIMUM_VIDEO_BITRATE}\" -bufsize \"${MAXIMUM_VIDEO_BITRATE}\" -pass 1 -fastfirstpass 0 -passlogfile \"${PASS_LOG_FILE_PREFIX}\" -f mp4 -y /dev/null"
+ffmpeg_command_line="${ffmpeg_BIN_PATH} -i \"${INPUT_VIDEO_FILE}\"  -vf scale=1920:1080 -an -b:v \"${AVERAGE_VIDEO_BITRATE}\" -maxrate:v \"${MAXIMUM_VIDEO_BITRATE}\" -bufsize \"${MAXIMUM_VIDEO_BITRATE}\" -pass 1 -fastfirstpass 0 -passlogfile \"${PASS_LOG_FILE_PREFIX}\" -f mp4 -y /dev/null"
 perform_encoding_pass
 write_log "Finished 1st pass of video encoding."
 
 write_log "Starting 2nd pass of video encoding..." 1 
-ffmpeg_command_line="${ffmpeg_BIN_PATH} -i \"${INPUT_VIDEO_FILE}\" -an -b:v \"${AVERAGE_VIDEO_BITRATE}\" -maxrate:v \"${MAXIMUM_VIDEO_BITRATE}\" -bufsize \"${MAXIMUM_VIDEO_BITRATE}\" -pass 2 -passlogfile \"${PASS_LOG_FILE_PREFIX}\" -f mp4 -y /dev/null"
+ffmpeg_command_line="${ffmpeg_BIN_PATH} -i \"${INPUT_VIDEO_FILE}\"  -vf scale=1920:1080 -an -b:v \"${AVERAGE_VIDEO_BITRATE}\" -maxrate:v \"${MAXIMUM_VIDEO_BITRATE}\" -bufsize \"${MAXIMUM_VIDEO_BITRATE}\" -pass 2 -passlogfile \"${PASS_LOG_FILE_PREFIX}\" -f mp4 -y /dev/null"
 perform_encoding_pass
 write_log "Finished 2nd pass of video encoding."
 
 write_log "Starting 3rd pass of video encoding..." 1
-ffmpeg_command_line="${ffmpeg_BIN_PATH} -i \"${INPUT_VIDEO_FILE}\" -b:v \"${AVERAGE_VIDEO_BITRATE}\" -maxrate:v \"${MAXIMUM_VIDEO_BITRATE}\" -bufsize \"${MAXIMUM_VIDEO_BITRATE}\" -c:a copy -pass 3 -passlogfile \"${PASS_LOG_FILE_PREFIX}\" \"${OUTPUT_MP4_FILE}\""
+ffmpeg_command_line="${ffmpeg_BIN_PATH} -i \"${INPUT_VIDEO_FILE}\"  -vf scale=1920:1080 -b:v \"${AVERAGE_VIDEO_BITRATE}\" -maxrate:v \"${MAXIMUM_VIDEO_BITRATE}\" -bufsize \"${MAXIMUM_VIDEO_BITRATE}\" -c:a copy -pass 3 -passlogfile \"${PASS_LOG_FILE_PREFIX}\" \"${OUTPUT_MP4_FILE}\""
 perform_encoding_pass
 write_log "Finished 3rd pass of video encoding."
